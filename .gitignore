@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+*.pkl
+*.json
+static/vqe_plot.png
+.env 
