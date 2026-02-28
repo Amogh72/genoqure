@@ -4,6 +4,9 @@
     <head>
         <title>Genome Guided Drug Screening</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" 
+          integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
     <body>
@@ -13,10 +16,10 @@
                 <p class="navTitle">GenoQure</p>
             </div>
             <div class="navButtons">
-                <a href="">The Disease</a>
-                <a href="">The Drug</a>
-                <a href="">Our System</a>
-                <a href="">Results</a>
+                <a href="#fabry">The Disease</a>
+                <a href="#tD">The Drug</a>
+                <a href="#mA">Our System</a>
+                <a href="">Workflow</a>
             </div>
             <div class="navlinks">
                 <a href="https://rarediseases.org/rare-diseases/fabry-disease/" class="navLink">Research</a>
@@ -27,7 +30,7 @@
             <img src="/static/hero-Picsart-AiImageEnhancer.png">
         </div>
 
-        <div class="mutationAnalysis">
+        <div class="mutationAnalysis" id="mA">
             <div class="ma-title">
                 <p class="title">Mutation Analysis</p>
                 <p class="desc">
@@ -99,6 +102,103 @@
             </div>
         </div>
         {% endif %}
+
+        <div class="infoSection" id="fabry">
+            <div class="fd-title">
+                <p>Fabry Disease</p>
+            </div>
+
+            <div class="boxes">
+                <div class="fdBox">
+                    <i class="fa-solid fa-dna icon"></i>
+                    <p class="box-title">Genetic Cause</p>
+                    <p class="box-desc">
+                        It is a rare X-linked disorder 
+                        caused by mutations in the <i>GLA gene</i>.
+                    </p>
+                </div>
+
+                <div class="fdBox">
+                    <i class="fa-solid fa-triangle-exclamation icon"></i>
+                    <p class="box-title">Enzyme Deficiency</p>
+                    <p class="box-desc">
+                        The mutation reduces or eliminates 
+                        the enzyme <i>alpha-galactosidase A</i>.
+                    </p>
+                </div>
+
+                <div class="fdBox">
+                    <i class="fa-solid fa-explosion icon"></i>
+                    <p class="box-title">Cellular Impact</p>
+                    <p class="box-desc">
+                        Harmful lipids accumulate inside cells, 
+                        leading to progressive organ damage.
+                    </p>
+                </div>
+
+                <div class="fdBox">
+                    <i class="fa-solid fa-lungs-virus icon"></i>
+                    <p class="box-title">Organs Affected</p>
+                    <p class="box-desc">
+                        The heart, kidneys, nervous system, 
+                        and skin are commonly impacted.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="theDrug" id="tD">
+            <img src="/static/drug.png">
+        </div>
+
+        <div class="workflowSection" id="workflow">
+            <p class="sectionTitle">System Workflow</p>
+
+            <div class="workflowContainer">
+
+                <div class="workflowStep">
+                    <div class="stepNumber">01</div>
+                    <p class="ws-title">Mutation Input</p>
+                    <p class="ws-desc">User enters a GLA gene mutation for evaluation.</p>
+                </div>
+
+                <div class="workflowStep">
+                    <div class="stepNumber">02</div>
+                    <p class="ws-title">Database Validation</p>
+                    <p class="ws-desc">Mutation is checked against known Fabry mutation data.</p>
+                </div>
+
+                <div class="workflowStep">
+                    <div class="stepNumber">03</div>
+                    <p class="ws-title">Computational Modeling</p>
+                    <p class="ws-desc">Quantum-assisted modeling evaluates structural impact.</p>
+                </div>
+
+                <div class="workflowStep">
+                    <div class="stepNumber">04</div>
+                    <p class="ws-title">Prediction Output</p>
+                    <p class="ws-desc">System returns responsiveness prediction with confidence score.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footerSection">
+            <div class="socialLinks">
+                <div class="icons">
+                    <div class="icon">
+                        <a href="https://github.com/Amogh72/genoqure.git"><i class="fa-brands fa-github git"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="f-title">
+                <p>© 2026 AbhiNavan. Designed for AMD Slingshot.</p>
+            </div>
+            <div class="f-info-links">
+                Frontend & Model By
+                <a href="https://github.com/Amogh72">Amogh Yadav</a>
+            </div>
+        </div>
 
         <div id="resultData" data-has-result="{{ 'true' if result else 'false' }}"></div>
 

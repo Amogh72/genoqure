@@ -1,5 +1,6 @@
 body {
     box-sizing: border-box;
+    margin: 0;
 }
 
 .navbar {
@@ -89,24 +90,28 @@ body {
     transform: translateY(-1px);
 }
 
-.heroSection {
+.heroSection, .theDrug {
     position: relative;
     overflow: hidden;
     margin-bottom: 60px;
 }
 
-.heroSection::after {
+.heroSection::after, .theDrug::after {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
 }
 
-.heroSection img {
+.heroSection img, .theDrug img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: brightness(0.85) contrast(1.1);
+}
+
+.theDrug img {
+    height: 600px;
 }
 
 .mutationAnalysis {
@@ -420,4 +425,199 @@ form input,
 
 body.modal-open {
     overflow: hidden;
+}
+
+.infoSection, .workflowSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.fd-title, .sectionTitle {
+    font-size: 2.2rem;
+}
+
+.sectionTitle {
+    margin: 0;
+}
+
+.fd-title p {
+    margin: 0;
+}
+
+.boxes, .workflowContainer {
+    margin-top: 24px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    justify-self: center;
+}
+
+.fdBox, .workflowStep {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: auto;
+    border-radius: 15px;
+    color: #fff;
+    padding: 23px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fdBox {
+    background: #333;
+    box-shadow: 
+    0 10px 40px rgba(0,0,0,0.35),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.workflowStep {
+    background: linear-gradient(145deg, #1c1c1c, #232323);
+    box-shadow: 
+        0 10px 30px rgba(0,0,0,0.4),
+        inset 0 0 10px rgba(255,255,255,0.05);
+}
+
+.fdBox:hover, .workflowStep:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.fdBox .icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    background: linear-gradient(
+        90deg,
+        #00f5d4,
+        #00bbf9,
+        #3a86ff
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stepNumber {
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #f0f2f5, #c7ccd6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.25),
+        0 0 18px rgba(200, 210, 230, 0.15);
+}
+
+.box-title, .ws-title {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.box-desc, .ws-desc {
+    text-align: center;
+    font-size: 0.87rem;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 0;
+}
+
+.ws-desc {
+    margin-top: 3px;
+}
+
+.footerSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    background: linear-gradient(145deg, #1c1c1c, #232323);;
+    padding: 20px 0;
+}
+
+.socialLinks {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.icons {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.icons i {
+    font-size: 1rem;
+    color: #ccc;
+    transition: color 0.2s ease-in-out;
+}
+
+.icons .git:hover {
+    color: white;
+}
+
+.f-links a {
+    font-family: 'Inter', sans-serif;
+}
+
+.f-title {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #f0f2f5, #c7ccd6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.f-info-links {
+    font-family: 'Times New Roman', Times, serif;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.f-info-links a {
+    position: relative;
+    text-decoration: none;
+    padding: 5px 10px;
+    color: aliceblue;
+    border-radius: 25px;
+    font-size: 0.97rem;
+    background: #333;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.75);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.f-info-links a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        90deg,
+        #1f3b6e,
+        #4b6fa8,
+        #d9d0c7
+    );
+
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: -1;
+}
+
+.f-info-links a:hover::before {
+    opacity: 1;
+}
+
+.f-info-links a:hover {
+    transform: translateY(-1px);
 }
