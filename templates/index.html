@@ -1,232 +1,307 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Genome Guided Drug Screening</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" 
-          integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" 
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
-    </head>
+<head>
+    <title>Genome Guided Drug Screening</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
 
-    <body>
+<body>
 
-        <div class="navbar">
-            <div class="nav-title">
-                <p class="navTitle">GenoQure</p>
-            </div>
-            <div class="navButtons">
-                <a href="#fabry">The Disease</a>
-                <a href="#tD">The Drug</a>
-                <a href="#mA">Our System</a>
-                <a href="#workflow">Workflow</a>
-            </div>
-            <div class="navlinks">
-                <a href="https://rarediseases.org/rare-diseases/fabry-disease/" class="navLink">Research</a>
+    <div class="navbar">
+        <div class="nav-title">
+            <p class="navTitle">GenoQure</p>
+        </div>
+        <div class="navButtons">
+            <a href="#fabry">The Disease</a>
+            <a href="#tD">The Drug</a>
+            <a href="#mA">Our System</a>
+            <a href="#workflow">Workflow</a>
+        </div>
+        <div class="navlinks">
+            <a href="https://rarediseases.org/rare-diseases/fabry-disease/" class="navLink">Research</a>
+        </div>
+    </div>
+
+    <div class="heroSection">
+        <img src="/static/hero-Picsart-AiImageEnhancer.png">
+    </div>
+
+    <div class="mutationAnalysis" id="mA">
+        <div class="ma-title">
+            <p class="title">Mutation Analysis</p>
+            <p class="desc">
+                Enter a GLA gene mutation to evaluate its potential response to targeted therapy.<br>
+                GenoQure analyzes mutation-specific data and applies quantum-assisted modeling to support precision
+                treatment decisions.
+            </p>
+        </div>
+        <div class="ma-form">
+            <form method="POST" id="mutationForm">
+                <input name="mutation" placeholder="Enter mutation">
+                <button type="submit" class="subBtn">Check</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="loader">
+        <div class="loaderBox">
+            <div class="spinner"></div>
+            <p id="loading">Running quantum analysis</p>
+        </div>
+    </div>
+
+    {% if result %}
+    <div class="result" id="resultModal">
+        <div class="resultBox">
+            <div class="scrollArea">
+                <p class="rb-title">Analysis completed!</p>
+                <div class="resultInfo">
+
+                    <div class="ri-desc">
+
+                        <div class="modelBadge">
+                            <p>Hybrid Quantum‑Calibrated ML v2.0</p>
+                        </div>
+
+                        <p><b>Gene:</b> {{ result.gene }}</p>
+                        <p><b>Protein:</b> {{ result.protein_change }}</p>
+
+                        {% if result.amenable is none %}
+                        <p style="color:orange;"><b>Prediction:</b> Uncertain</p>
+                        {% else %}
+                        <p>
+                            <b>Prediction:</b>
+                            {{ "Likely responsive" if result.amenable else "Likely non-responsive" }}
+                        </p>
+                        {% endif %}
+
+                        <p><b>Drug:</b> {{ result.drug }}</p>
+                        <p><b>Disease:</b> {{ result.disease }}</p>
+
+                        {% if result and 'confidence' in result %}
+                        <p><b>Model Confidence</b></p>
+                        <div class="confidenceBar">
+                            <div class="confidenceFill"
+                                style="width: {{ result.confidence }}%; background: {{ result.confidence_color }};">
+                            </div>
+                        </div>
+
+                        <p class="confidenceText">
+                            {{ result.confidence }}% — {{ result.confidence_level }}
+                        </p>
+                        {% endif %}
+
+                        <hr>
+
+                        <div class="analysisBox">
+                            <p class="analysisTitle">Quantum Stability Assessment</p>
+                            <ul>
+                                <li>Energy deviation computed relative to wild‑type baseline</li>
+                                <li>Variance‑weighted structural instability modeled</li>
+                                <li>Position‑dependent quantum interaction analyzed</li>
+                                <li>Optimization convergence dynamics evaluated</li>
+                            </ul>
+                        </div>
+
+                        <hr>
+
+                        <div class="analysisBox">
+                            <p class="analysisTitle">🔬 Model Insight Snapshot</p>
+
+                            <p><b>Quantum Energy Shift (ΔE):</b> {{ result.delta_energy }}</p>
+                            <p><b>Stability Index:</b> {{ result.stability_index }}</p>
+                            <p><b>Variance–Position Interaction:</b> {{ result.interaction }}</p>
+                            <p><b>Convergence Rate:</b> {{ result.convergence_rate }}</p>
+                        </div>
+
+                        <p><b>Source:</b> {{ result.source if 'source' in result else 'Hybrid Engine' }}</p>
+
+                        {% if result and 'note' in result and result.note %}
+                        <p><b>Notes:</b> {{ result.note }}</p>
+                        {% endif %}
+
+                        {% if result.risk_explanation %}
+                        <div class="analysisBox">
+                            <p class="analysisTitle">⚠ Risk-Aware Model Assessment</p>
+                            <p>{{ result.risk_explanation }}</p>
+                        </div>
+                        {% endif %}
+
+                        <hr>
+
+                        <div class="comparisonBox">
+                            <p class="analysisTitle">Model Comparison</p>
+
+                            {% if result and 'classical_confidence' in result %}
+                            <p><b>Classical Model Confidence:</b> {{ result.classical_confidence }}</p>
+                            <p><b>Hybrid Model Confidence:</b> {{ result.hybrid_confidence }}</p>
+
+                            <p class="improvement">
+                                {{ result.improvement_text }}
+                            </p>
+                            {% endif %}
+                        </div>
+
+                        <div class="reliabilityNote">
+                            Probability calibrated using sigmoid calibration to improve clinical reliability.
+                        </div>
+
+                    </div>
+
+                    <div class="ri-img">
+
+                        <div class="analysisBox">
+                            <p class="analysisTitle">⚛ Quantum Optimization Diagnostics</p>
+
+                            <p><b>Iterations:</b> {{ result.iterations }}</p>
+                            <p><b>Energy Variance:</b> {{ result.energy_variance }}</p>
+                            <p><b>Convergence Stability:</b> {{ result.convergence_label }}</p>
+                        </div>
+
+                        <img src="{{ url_for('static', filename='vqe_plot.png') }}?t={{ range(1,100000)|random }}">
+
+                    </div>
+
+                </div>
+
+                <div class="closeResult">
+                    <form method="GET">
+                        <button type="button" onclick="closeRes()" class="closeBtn">Close</button>
+                    </form>
+                </div>
             </div>
         </div>
+    </div>
+    {% endif %}
 
-        <div class="heroSection">
-            <img src="/static/hero-Picsart-AiImageEnhancer.png">
+    <div class="infoSection" id="fabry">
+        <div class="fd-title">
+            <p>Fabry Disease</p>
         </div>
 
-        <div class="mutationAnalysis" id="mA">
-            <div class="ma-title">
-                <p class="title">Mutation Analysis</p>
-                <p class="desc">
-                    Enter a GLA gene mutation to evaluate its potential response to targeted therapy.<br>
-                    GenoQure analyzes mutation-specific data and applies quantum-assisted modeling to support precision treatment decisions.
+        <div class="boxes">
+            <div class="fdBox">
+                <i class="fa-solid fa-dna icon"></i>
+                <p class="box-title">Genetic Cause</p>
+                <p class="box-desc">
+                    It is a rare X-linked disorder
+                    caused by mutations in the <i>GLA gene</i>.
                 </p>
             </div>
-            <div class="ma-form">
-                <form method="POST" id="mutationForm">
-                    <input name="mutation" placeholder="Enter mutation">
-                    <button type="submit" class="subBtn">Check</button>
-                </form>
+
+            <div class="fdBox">
+                <i class="fa-solid fa-triangle-exclamation icon"></i>
+                <p class="box-title">Enzyme Deficiency</p>
+                <p class="box-desc">
+                    The mutation reduces or eliminates
+                    the enzyme <i>alpha-galactosidase A</i>.
+                </p>
+            </div>
+
+            <div class="fdBox">
+                <i class="fa-solid fa-explosion icon"></i>
+                <p class="box-title">Cellular Impact</p>
+                <p class="box-desc">
+                    Harmful lipids accumulate inside cells,
+                    leading to progressive organ damage.
+                </p>
+            </div>
+
+            <div class="fdBox">
+                <i class="fa-solid fa-lungs-virus icon"></i>
+                <p class="box-title">Organs Affected</p>
+                <p class="box-desc">
+                    The heart, kidneys, nervous system,
+                    and skin are commonly impacted.
+                </p>
             </div>
         </div>
+    </div>
 
-        <div class="loader">
-            <div class="loaderBox">
-                <div class="spinner"></div>
-                <p id="loading">Running quantum analysis</p>
+    <div class="theDrug" id="tD">
+        <img src="/static/drug.png">
+    </div>
+
+    <div class="workflowSection" id="workflow">
+        <p class="sectionTitle">System Workflow</p>
+
+        <div class="workflowContainer">
+
+            <div class="workflowStep">
+                <div class="stepNumber">01</div>
+                <p class="ws-title">Mutation Input</p>
+                <p class="ws-desc">User enters a GLA gene mutation for evaluation.</p>
             </div>
+
+            <div class="workflowStep">
+                <div class="stepNumber">02</div>
+                <p class="ws-title">Database Validation</p>
+                <p class="ws-desc">Mutation is checked against known Fabry mutation data.</p>
+            </div>
+
+            <div class="workflowStep">
+                <div class="stepNumber">03</div>
+                <p class="ws-title">Computational Modeling</p>
+                <p class="ws-desc">Quantum-assisted modeling evaluates structural impact.</p>
+            </div>
+
+            <div class="workflowStep">
+                <div class="stepNumber">04</div>
+                <p class="ws-title">Prediction Output</p>
+                <p class="ws-desc">System returns responsiveness prediction with confidence score.</p>
+            </div>
+
         </div>
+    </div>
 
-        {% if result %}
-        <div class="result" id="resultModal">
-            <div class="resultBox">
-                <div class="scrollArea">
-                    <p class="rb-title">Analysis completed!</p>
-                    <div class="resultInfo">
-
-                        <div class="ri-desc">
-                            <p><b>Gene:</b> {{ result.gene }}</p>
-                            <p><b>Protein:</b> {{ result.protein_change }}</p>
-
-                            {% if result.amenable is none %}
-                                <p style="color:orange;"><b>Prediction:</b> Uncertain</p>
-                            {% else %}
-                                <p>
-                                    <b>Prediction:</b>
-                                    {{ "Likely responsive" if result.amenable else "Likely non-responsive" }}
-                                </p>
-                            {% endif %}
-
-                            <p><b>Drug:</b> {{ result.drug }}</p>
-                            <p><b>Disease:</b> {{ result.disease }}</p>
-                            {% if result and 'note' in result and result.note %}
-                                <p><b>Notes:</b> {{ result.note }}</p>
-                            {% endif %}
-
-                            <p><b>Source:</b> {{ result.source if 'source' in result else 'Unknown' }}</p>
-
-                            {% if result and 'confidence' in result %}
-                                <p><b>Confidence:</b> {{ result.confidence }}</p>
-                            {% endif %}
-
-                        </div>
-                    
-                        <div class="ri-img">
-                            <img src="{{ url_for('static', filename='vqe_plot.png') }}?t={{ range(1,100000)|random }}">
-                        </div>
-                        
-                    </div>
-
-                    <div class="closeResult">
-                        <form method="GET">
-                            <button type="button" onclick="closeRes()" class="closeBtn">Close</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
-        <div class="infoSection" id="fabry">
-            <div class="fd-title">
-                <p>Fabry Disease</p>
-            </div>
-
-            <div class="boxes">
-                <div class="fdBox">
-                    <i class="fa-solid fa-dna icon"></i>
-                    <p class="box-title">Genetic Cause</p>
-                    <p class="box-desc">
-                        It is a rare X-linked disorder 
-                        caused by mutations in the <i>GLA gene</i>.
-                    </p>
-                </div>
-
-                <div class="fdBox">
-                    <i class="fa-solid fa-triangle-exclamation icon"></i>
-                    <p class="box-title">Enzyme Deficiency</p>
-                    <p class="box-desc">
-                        The mutation reduces or eliminates 
-                        the enzyme <i>alpha-galactosidase A</i>.
-                    </p>
-                </div>
-
-                <div class="fdBox">
-                    <i class="fa-solid fa-explosion icon"></i>
-                    <p class="box-title">Cellular Impact</p>
-                    <p class="box-desc">
-                        Harmful lipids accumulate inside cells, 
-                        leading to progressive organ damage.
-                    </p>
-                </div>
-
-                <div class="fdBox">
-                    <i class="fa-solid fa-lungs-virus icon"></i>
-                    <p class="box-title">Organs Affected</p>
-                    <p class="box-desc">
-                        The heart, kidneys, nervous system, 
-                        and skin are commonly impacted.
-                    </p>
+    <div class="footerSection">
+        <div class="socialLinks">
+            <div class="icons">
+                <div class="icon">
+                    <a href="https://github.com/Amogh72/genoqure.git"><i class="fa-brands fa-github git"></i></a>
                 </div>
             </div>
         </div>
-
-        <div class="theDrug" id="tD">
-            <img src="/static/drug.png">
+        <div class="f-title">
+            <p>© 2026 AbhiNavan. Designed for AMD Slingshot.</p>
         </div>
-
-        <div class="workflowSection" id="workflow">
-            <p class="sectionTitle">System Workflow</p>
-
-            <div class="workflowContainer">
-
-                <div class="workflowStep">
-                    <div class="stepNumber">01</div>
-                    <p class="ws-title">Mutation Input</p>
-                    <p class="ws-desc">User enters a GLA gene mutation for evaluation.</p>
-                </div>
-
-                <div class="workflowStep">
-                    <div class="stepNumber">02</div>
-                    <p class="ws-title">Database Validation</p>
-                    <p class="ws-desc">Mutation is checked against known Fabry mutation data.</p>
-                </div>
-
-                <div class="workflowStep">
-                    <div class="stepNumber">03</div>
-                    <p class="ws-title">Computational Modeling</p>
-                    <p class="ws-desc">Quantum-assisted modeling evaluates structural impact.</p>
-                </div>
-
-                <div class="workflowStep">
-                    <div class="stepNumber">04</div>
-                    <p class="ws-title">Prediction Output</p>
-                    <p class="ws-desc">System returns responsiveness prediction with confidence score.</p>
-                </div>
-
-            </div>
+        <div class="f-info-links">
+            Frontend By
+            <a href="https://github.com/Amogh72">Amogh Yadav</a>
         </div>
+    </div>
 
-        <div class="footerSection">
-            <div class="socialLinks">
-                <div class="icons">
-                    <div class="icon">
-                        <a href="https://github.com/Amogh72/genoqure.git"><i class="fa-brands fa-github git"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="f-title">
-                <p>© 2026 AbhiNavan. Designed for AMD Slingshot.</p>
-            </div>
-            <div class="f-info-links">
-                Frontend By
-                <a href="https://github.com/Amogh72">Amogh Yadav</a>
-            </div>
-        </div>
+    <div id="resultData" data-has-result="{{ 'true' if result else 'false' }}"></div>
 
-        <div id="resultData" data-has-result="{{ 'true' if result else 'false' }}"></div>
+    <script>
+        document.getElementById("mutationForm").addEventListener("submit", function () {
+            document.querySelector(".loader").classList.add("active");
+        });
 
-        <script>
-            document.getElementById("mutationForm").addEventListener("submit", function() {
-                document.querySelector(".loader").classList.add("active");
-            });
+        window.addEventListener("load", () => {
+            const hasResult = document
+                .getElementById("resultData")
+                .dataset.hasResult === "true";
 
-            window.addEventListener("load", () => {
-                const hasResult = document
-                    .getElementById("resultData")
-                    .dataset.hasResult === "true";
+            if (hasResult) {
+                document.querySelector(".loader").classList.remove("active");
+                document.querySelector(".result").classList.add("active");
 
-                if (hasResult) {
-                    document.querySelector(".loader").classList.remove("active");
-                    document.querySelector(".result").classList.add("active");
-
-                    window.history.replaceState({}, document.title, "/");
-                    document.body.classList.add("modal-open");
-                }
-            });
-
-            function closeRes() {
-                document.getElementById("resultModal").classList.remove("active");
-                document.body.classList.remove("modal-open");
+                window.history.replaceState({}, document.title, "/");
+                document.body.classList.add("modal-open");
             }
-        </script>
+        });
 
-    </body>
+        function closeRes() {
+            document.getElementById("resultModal").classList.remove("active");
+            document.body.classList.remove("modal-open");
+        }
+    </script>
+
+</body>
 
 </html>

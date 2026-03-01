@@ -1,10 +1,14 @@
 import json
 import random
 import string
+import os
 
 # Load your existing dataset
-with open("variants.json") as f:
-    base = json.load(f)
+if os.path.exists("variants.json"):
+    with open("variants.json") as f:
+        base = json.load(f)
+else:
+    base = {}
 
 dataset = dict(base)
 
