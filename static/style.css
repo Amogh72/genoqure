@@ -309,10 +309,53 @@ form input,
     border-radius: 22px;
 }
 
-.rb-title {
-    text-align: center;
-    margin: 0 0 20px 0;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    margin: 0;
     font-size: 2.2rem;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0;
+}
+
+.modelBadge {
+    position: relative;
+    text-decoration: none;
+    padding: 5px 10px;
+    color: aliceblue;
+    border-radius: 25px;
+    font-size: 0.97rem;
+    background: #333;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.75);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modelBadge::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 25px;
+
+    background: linear-gradient(90deg,
+            #1f3b6e,
+            #4b6fa8,
+            #d9d0c7);
+
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: -1;
+}
+
+.modelBadge:hover::before {
+    opacity: 1;
 }
 
 .scrollArea {
@@ -321,46 +364,85 @@ form input,
     padding-right: 25px;
 }
 
-.resultInfo {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 50px;
-    align-items: start;
-    margin-top: 30px;
+.summaryGrid {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.ri-desc {
-    width: 46%;
+.summaryItem span, .cardTitle, .confidenceText, .comparisonGrid span {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #777;
+}
+
+.cardTitle {
+    margin: 0;
+}
+
+.summaryItem strong, .predictionBadge, .comparisonGrid strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 16px;
+}
+
+.predictionBadge {
+    margin-top: 15px;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.predictionBadge.positive {
+    background: rgba(0,200,83,0.15);
+    color: #0a8f4d;
+}
+
+.predictionBadge.negative {
+    background: rgba(220,53,69,0.15);
+    color: #b42332;
+}
+
+.mainGrid {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-top: 50px;
+}
+
+.leftCol, .rightCol {
+    width: 48%;
     display: flex;
     flex-direction: column;
 }
 
-.ri-desc p {
-    margin: 14px 0;
-    font-size: 15px;
-    line-height: 1.6;
+.leftCol {
+    align-items: start;
 }
 
-.ri-desc b {
-    display: block;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #777;
-    margin-bottom: 3px;
-}
-
-.ri-img {
+.chartCard {
     background: #f6f7fb;
     padding: 20px;
     border-radius: 16px;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-.ri-img img {
+.chartCard img {
     width: 100%;
     height: auto;
     border-radius: 12px;
+}
+
+.card, .rightCol .card {
+    width: 90%;
+    margin-bottom: 20px;
+    background-color: #e9ebee;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.card p {
+    margin: 0 0 5px 0;
 }
 
 .closeBtn {
@@ -425,6 +507,68 @@ form input,
 
 body.modal-open {
     overflow: hidden;
+}
+
+.confidence {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+.confidenceBar {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 10px;
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 6px 0;
+}
+
+.confidenceFill {
+    height: 100%;
+    background: linear-gradient(90deg, #00c853, #4caf50);
+    transition: width 0.6s ease;
+}
+
+.cp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    margin: 0;
+    padding: 5px;
+    background-color: rgb(33, 33, 33);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
+}
+
+.comparisonGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 10px 0 15px 0;
+}
+
+.improvementText {
+    margin-top: 10px;
+    font-weight: 500;
+    color: #3f5ed7;
+}
+
+/* Reliability Note */
+.reliabilityNote {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #666;
 }
 
 .infoSection,
@@ -624,89 +768,4 @@ body.modal-open {
 
 .f-info-links a:hover {
     transform: translateY(-1px);
-}
-
-.modelBadge {
-    background: linear-gradient(90deg, #4b6fa8, #6e8fbd);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    width: fit-content;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.confidenceBar {
-    width: 100%;
-    height: 10px;
-    background: #eee;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 6px 0;
-}
-
-.confidenceFill {
-    height: 100%;
-    background: linear-gradient(90deg, #00c853, #4caf50);
-    transition: width 0.6s ease;
-}
-
-.confidenceText {
-    font-size: 12px;
-    margin-top: 3px;
-    color: #555;
-}
-
-.analysisBox {
-    background: #f4f6fb;
-    padding: 12px;
-    border-radius: 12px;
-    margin: 10px 0;
-    font-size: 13px;
-}
-
-.analysisTitle {
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-
-.reliabilityNote {
-    margin-top: 15px;
-    font-size: 11px;
-    color: #777;
-    font-style: italic;
-}
-
-.comparisonBox {
-    background: #eef3ff;
-    padding: 12px;
-    border-radius: 12px;
-    margin-top: 12px;
-    font-size: 13px;
-}
-
-.improvement {
-    color: #2e7d32;
-    font-weight: bold;
-    margin-top: 6px;
-}
-
-.confidenceBar {
-    width: 100%;
-    height: 14px;
-    background: #e0e0e0;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 8px 0 6px 0;
-}
-
-.confidenceFill {
-    height: 100%;
-    transition: width 0.6s ease-in-out;
-}
-
-.confidenceText {
-    font-size: 0.85rem;
-    font-weight: 500;
 }

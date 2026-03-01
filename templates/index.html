@@ -55,125 +55,181 @@
     </div>
 
     {% if result %}
-    <div class="result" id="resultModal">
+    <div class="result active" id="resultModal">
         <div class="resultBox">
+
+            <!-- HEADER -->
+            <div class="header">
+                <div>
+                    <h2 class="title">Analysis Completed</h2>
+                    <p class="subtitle">
+                        Variant assessment using hybrid quantum-calibrated model
+                    </p>
+                </div>
+
+                <div class="modelBadge">
+                    Hybrid Quantum-Calibrated ML v2.0
+                </div>
+            </div>
+
+            <!-- SCROLL AREA -->
             <div class="scrollArea">
-                <p class="rb-title">Analysis completed!</p>
-                <div class="resultInfo">
 
-                    <div class="ri-desc">
+                <!-- SUMMARY GRID -->
+                <div class="summaryGrid">
+                    <div class="summaryItem">
+                        <span>Gene</span>
+                        <strong>{{ result.gene }}</strong>
+                    </div>
 
-                        <div class="modelBadge">
-                            <p>Hybrid Quantum‑Calibrated ML v2.0</p>
-                        </div>
+                    <div class="summaryItem">
+                        <span>Protein</span>
+                        <strong>{{ result.protein_change }}</strong>
+                    </div>
 
-                        <p><b>Gene:</b> {{ result.gene }}</p>
-                        <p><b>Protein:</b> {{ result.protein_change }}</p>
+                    <div class="summaryItem">
+                        <span>Drug</span>
+                        <strong>{{ result.drug }}</strong>
+                    </div>
 
-                        {% if result.amenable is none %}
-                        <p style="color:orange;"><b>Prediction:</b> Uncertain</p>
-                        {% else %}
-                        <p>
-                            <b>Prediction:</b>
-                            {{ "Likely responsive" if result.amenable else "Likely non-responsive" }}
-                        </p>
-                        {% endif %}
+                    <div class="summaryItem">
+                        <span>Disease</span>
+                        <strong>{{ result.disease }}</strong>
+                    </div>
+                </div>
 
-                        <p><b>Drug:</b> {{ result.drug }}</p>
-                        <p><b>Disease:</b> {{ result.disease }}</p>
+                <!-- MAIN GRID -->
+                <div class="mainGrid">
 
-                        {% if result and 'confidence' in result %}
-                        <p><b>Model Confidence</b></p>
-                        <div class="confidenceBar">
-                            <div class="confidenceFill"
-                                style="width: {{ result.confidence }}%; background: {{ result.confidence_color }};">
+                    <!-- LEFT COLUMN -->
+                    <div class="leftCol">
+
+                        <!-- Prediction -->
+                        <div class="card">
+                            <p class="cardTitle">Prediction</p>
+                            <div class="predictionBadge 
+                                {% if result.amenable %}positive{% else %}negative{% endif %}">
+                                {{ "Likely Responsive" if result.amenable else "Likely Non-Responsive" }}
                             </div>
                         </div>
 
-                        <p class="confidenceText">
-                            {{ result.confidence }}% — {{ result.confidence_level }}
-                        </p>
-                        {% endif %}
-
-                        <hr>
-
-                        <div class="analysisBox">
-                            <p class="analysisTitle">Quantum Stability Assessment</p>
-                            <ul>
-                                <li>Energy deviation computed relative to wild‑type baseline</li>
-                                <li>Variance‑weighted structural instability modeled</li>
-                                <li>Position‑dependent quantum interaction analyzed</li>
-                                <li>Optimization convergence dynamics evaluated</li>
-                            </ul>
-                        </div>
-
-                        <hr>
-
-                        <div class="analysisBox">
-                            <p class="analysisTitle">🔬 Model Insight Snapshot</p>
-
-                            <p><b>Quantum Energy Shift (ΔE):</b> {{ result.delta_energy }}</p>
-                            <p><b>Stability Index:</b> {{ result.stability_index }}</p>
-                            <p><b>Variance–Position Interaction:</b> {{ result.interaction }}</p>
-                            <p><b>Convergence Rate:</b> {{ result.convergence_rate }}</p>
-                        </div>
-
-                        <p><b>Source:</b> {{ result.source if 'source' in result else 'Hybrid Engine' }}</p>
-
-                        {% if result and 'note' in result and result.note %}
-                        <p><b>Notes:</b> {{ result.note }}</p>
-                        {% endif %}
-
-                        {% if result.risk_explanation %}
-                        <div class="analysisBox">
-                            <p class="analysisTitle">⚠ Risk-Aware Model Assessment</p>
-                            <p>{{ result.risk_explanation }}</p>
-                        </div>
-                        {% endif %}
-
-                        <hr>
-
-                        <div class="comparisonBox">
-                            <p class="analysisTitle">Model Comparison</p>
-
-                            {% if result and 'classical_confidence' in result %}
-                            <p><b>Classical Model Confidence:</b> {{ result.classical_confidence }}</p>
-                            <p><b>Hybrid Model Confidence:</b> {{ result.hybrid_confidence }}</p>
-
-                            <p class="improvement">
-                                {{ result.improvement_text }}
+                        <!-- Confidence -->
+                        {% if result and 'confidence' in result %}
+                        <div class="card">
+                            <p class="cardTitle">Model Confidence</p>
+                            <div class="confidence">
+                                <div class="confidenceBar">
+                                    <div class="confidenceFill"
+                                        style="width: {{ result.confidence }}%; background: {{ result.confidence_color }};">
+                                    </div>
+                                </div>
+                                <p class="cp">{{ result.confidence }}%</p>
+                            </div>
+                            <p class="confidenceText">
+                                {{ result.confidence_level }}
                             </p>
-                            {% endif %}
                         </div>
+                        {% endif %}
 
-                        <div class="reliabilityNote">
-                            Probability calibrated using sigmoid calibration to improve clinical reliability.
+                        <!-- Insights -->
+                        {% if result.delta_energy 
+                        or result.stability_index 
+                        or result.interaction 
+                        or result.convergence_rate %}
+
+                            <div class="card">
+                                <p class="cardTitle">Model Insight Snapshot</p>
+
+                                {% if result.delta_energy %}
+                                <p><b>ΔE:</b> {{ result.delta_energy }}</p>
+                                {% endif %}
+
+                                {% if result.stability_index %}
+                                <p><b>Stability Index:</b> {{ result.stability_index }}</p>
+                                {% endif %}
+
+                                {% if result.interaction %}
+                                <p><b>Interaction:</b> {{ result.interaction }}</p>
+                                {% endif %}
+
+                                {% if result.convergence_rate %}
+                                <p><b>Convergence Rate:</b> {{ result.convergence_rate }}</p>
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+
+                        {% if result and 'classical_confidence' in result %}
+                            <div class="card">
+                                <p class="cardTitle">Model Comparison</p>
+
+                                <div class="comparisonGrid">
+                                    <div>
+                                        <span>Classical Model</span>
+                                        <strong>{{ result.classical_confidence }}</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Hybrid Model</span>
+                                        <strong>{{ result.hybrid_confidence }}</strong>
+                                    </div>
+                                </div>
+
+                                <p class="improvementText">
+                                    {{ result.improvement_text }}
+                                </p>
+
+                                <div class="reliabilityNote">
+                                    Probability calibrated using sigmoid calibration to improve clinical reliability.
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    <!-- RIGHT COLUMN -->
+                    <div class="rightCol">
+
+                        {% if result.iterations is defined
+                        or result.energy_variance is defined
+                        or result.convergence_label is defined %}
+
+                            <div class="card">
+                                <p class="cardTitle">Quantum Optimization Diagnostics</p>
+
+                                {% if result.iterations %}
+                                <p><b>Iterations:</b> {{ result.iterations is defined }}</p>
+                                {% endif %}
+
+                                {% if result.energy_variance %}
+                                <p><b>Energy Variance:</b> {{ result.energy_variance }}</p>
+                                {% endif %}
+
+                                {% if result.convergence_label %}
+                                <p><b>Convergence Stability:</b> {{ result.convergence_label }}</p>
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+
+                        <div class="chartCard">
+                            <img src="{{ url_for('static', filename='vqe_plot.png') }}?t={{ range(1,100000)|random }}">
                         </div>
 
                     </div>
 
-                    <div class="ri-img">
-
-                        <div class="analysisBox">
-                            <p class="analysisTitle">⚛ Quantum Optimization Diagnostics</p>
-
-                            <p><b>Iterations:</b> {{ result.iterations }}</p>
-                            <p><b>Energy Variance:</b> {{ result.energy_variance }}</p>
-                            <p><b>Convergence Stability:</b> {{ result.convergence_label }}</p>
-                        </div>
-
-                        <img src="{{ url_for('static', filename='vqe_plot.png') }}?t={{ range(1,100000)|random }}">
-
-                    </div>
-
-                </div>
-
-                <div class="closeResult">
-                    <form method="GET">
-                        <button type="button" onclick="closeRes()" class="closeBtn">Close</button>
-                    </form>
                 </div>
             </div>
+
+            <!-- FOOTER -->
+            <div class="footer">
+                <button type="button" onclick="closeRes()" class="closeBtn">
+                    Close
+                </button>
+            </div>
+
         </div>
     </div>
     {% endif %}
