@@ -36,12 +36,10 @@ body {
 }
 
 .navButtons a:hover {
-    background: linear-gradient(
-        90deg,
-        #0759f0,
-        #093c8e,
-        #4d4b4b
-    );
+    background: linear-gradient(90deg,
+            #0759f0,
+            #093c8e,
+            #4d4b4b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -60,7 +58,7 @@ body {
     border-radius: 25px;
     font-size: 0.97rem;
     background: #333;
-    box-shadow: inset 0 0 10px rgba(255,255,255,0.75);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.75);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -70,12 +68,10 @@ body {
     inset: 0;
     border-radius: 25px;
 
-    background: linear-gradient(
-        90deg,
-        #1f3b6e,
-        #4b6fa8,
-        #d9d0c7
-    );
+    background: linear-gradient(90deg,
+            #1f3b6e,
+            #4b6fa8,
+            #d9d0c7);
 
     opacity: 0;
     transition: opacity 0.25s ease;
@@ -90,20 +86,23 @@ body {
     transform: translateY(-1px);
 }
 
-.heroSection, .theDrug {
+.heroSection,
+.theDrug {
     position: relative;
     overflow: hidden;
     margin-bottom: 60px;
 }
 
-.heroSection::after, .theDrug::after {
+.heroSection::after,
+.theDrug::after {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
 }
 
-.heroSection img, .theDrug img {
+.heroSection img,
+.theDrug img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -121,14 +120,12 @@ body {
     justify-content: space-between;
     justify-self: center;
     align-items: center;
-    background: linear-gradient(
-        145deg,
-        #121212,
-        #1a1f2b
-    );
-    box-shadow: 
-    0 10px 40px rgba(0,0,0,0.35),
-    inset 0 0 0 1px rgba(255,255,255,0.05);
+    background: linear-gradient(145deg,
+            #121212,
+            #1a1f2b);
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     border-radius: 25px;
     color: #d9d0c7;
     padding: 40px;
@@ -170,7 +167,7 @@ form input {
     width: 100%;
     padding: 12px 15px;
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(255, 255, 255, 0.051);
     color: #fff;
     outline: none;
@@ -183,7 +180,7 @@ form input::placeholder {
 
 form input:focus {
     border-color: #4b6fa8;
-    box-shadow: 0 0 10px rgba(75,111,168,0.4);
+    box-shadow: 0 0 10px rgba(75, 111, 168, 0.4);
 }
 
 form input,
@@ -209,12 +206,10 @@ form input,
     inset: 0;
     border-radius: 10px;
 
-    background: linear-gradient(
-        90deg,
-        #1f3b6e,
-        #4b6fa8,
-        #9aa5f3
-    );
+    background: linear-gradient(90deg,
+            #1f3b6e,
+            #4b6fa8,
+            #9aa5f3);
 
     opacity: 0;
     transition: opacity 0.25s ease;
@@ -229,7 +224,8 @@ form input,
     transform: translateY(-1px);
 }
 
-.loader, .result {
+.loader,
+.result {
     position: fixed;
     inset: 0;
     height: 100vh;
@@ -244,7 +240,8 @@ form input,
     transition: opacity 0.25s ease;
 }
 
-.loader.active, .result.active {
+.loader.active,
+.result.active {
     opacity: 1;
     visibility: visible;
 }
@@ -285,8 +282,13 @@ form input,
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .resultBox {
@@ -352,7 +354,7 @@ form input,
     background: #f6f7fb;
     padding: 20px;
     border-radius: 16px;
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 .ri-img img {
@@ -371,7 +373,7 @@ form input,
     border-radius: 25px;
     border: none;
     background: #333;
-    box-shadow: inset 0 0 10px rgba(255,255,255,0.75);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.75);
     color: white;
     font-weight: 600;
     cursor: pointer;
@@ -385,12 +387,10 @@ form input,
     inset: 0;
     border-radius: 25px;
 
-    background: linear-gradient(
-        90deg,
-        #1f3b6e,
-        #4b6fa8,
-        #d9d0c7
-    );
+    background: linear-gradient(90deg,
+            #1f3b6e,
+            #4b6fa8,
+            #d9d0c7);
 
     opacity: 0;
     transition: opacity 0.25s ease;
@@ -427,7 +427,8 @@ body.modal-open {
     overflow: hidden;
 }
 
-.infoSection, .workflowSection {
+.infoSection,
+.workflowSection {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -435,7 +436,8 @@ body.modal-open {
     margin-bottom: 60px;
 }
 
-.fd-title, .sectionTitle {
+.fd-title,
+.sectionTitle {
     font-size: 2.2rem;
 }
 
@@ -447,7 +449,8 @@ body.modal-open {
     margin: 0;
 }
 
-.boxes, .workflowContainer {
+.boxes,
+.workflowContainer {
     margin-top: 24px;
     width: 80%;
     display: flex;
@@ -455,7 +458,8 @@ body.modal-open {
     justify-self: center;
 }
 
-.fdBox, .workflowStep {
+.fdBox,
+.workflowStep {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -470,32 +474,31 @@ body.modal-open {
 
 .fdBox {
     background: #333;
-    box-shadow: 
-    0 10px 40px rgba(0,0,0,0.35),
-    inset 0 0 0 1px rgba(255,255,255,0.05);
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .workflowStep {
     background: linear-gradient(145deg, #1c1c1c, #232323);
-    box-shadow: 
-        0 10px 30px rgba(0,0,0,0.4),
-        inset 0 0 10px rgba(255,255,255,0.05);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        inset 0 0 10px rgba(255, 255, 255, 0.05);
 }
 
-.fdBox:hover, .workflowStep:hover {
+.fdBox:hover,
+.workflowStep:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .fdBox .icon {
     font-size: 2rem;
     margin-bottom: 20px;
-    background: linear-gradient(
-        90deg,
-        #00f5d4,
-        #00bbf9,
-        #3a86ff
-    );
+    background: linear-gradient(90deg,
+            #00f5d4,
+            #00bbf9,
+            #3a86ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -512,12 +515,14 @@ body.modal-open {
         0 0 18px rgba(200, 210, 230, 0.15);
 }
 
-.box-title, .ws-title {
+.box-title,
+.ws-title {
     margin: 0;
     font-size: 1.5rem;
 }
 
-.box-desc, .ws-desc {
+.box-desc,
+.ws-desc {
     text-align: center;
     font-size: 0.87rem;
     font-family: Arial, Helvetica, sans-serif;
@@ -535,7 +540,8 @@ body.modal-open {
     align-items: center;
     justify-content: center;
     margin-top: 40px;
-    background: linear-gradient(145deg, #1c1c1c, #232323);;
+    background: linear-gradient(145deg, #1c1c1c, #232323);
+    ;
     padding: 20px 0;
 }
 
@@ -592,7 +598,7 @@ body.modal-open {
     border-radius: 25px;
     font-size: 0.97rem;
     background: #333;
-    box-shadow: inset 0 0 10px rgba(255,255,255,0.75);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.75);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -602,12 +608,10 @@ body.modal-open {
     inset: 0;
     border-radius: 25px;
 
-    background: linear-gradient(
-        90deg,
-        #1f3b6e,
-        #4b6fa8,
-        #d9d0c7
-    );
+    background: linear-gradient(90deg,
+            #1f3b6e,
+            #4b6fa8,
+            #d9d0c7);
 
     opacity: 0;
     transition: opacity 0.25s ease;
@@ -620,4 +624,89 @@ body.modal-open {
 
 .f-info-links a:hover {
     transform: translateY(-1px);
+}
+
+.modelBadge {
+    background: linear-gradient(90deg, #4b6fa8, #6e8fbd);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    width: fit-content;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.confidenceBar {
+    width: 100%;
+    height: 10px;
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 6px 0;
+}
+
+.confidenceFill {
+    height: 100%;
+    background: linear-gradient(90deg, #00c853, #4caf50);
+    transition: width 0.6s ease;
+}
+
+.confidenceText {
+    font-size: 12px;
+    margin-top: 3px;
+    color: #555;
+}
+
+.analysisBox {
+    background: #f4f6fb;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.analysisTitle {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.reliabilityNote {
+    margin-top: 15px;
+    font-size: 11px;
+    color: #777;
+    font-style: italic;
+}
+
+.comparisonBox {
+    background: #eef3ff;
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+.improvement {
+    color: #2e7d32;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.confidenceBar {
+    width: 100%;
+    height: 14px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 8px 0 6px 0;
+}
+
+.confidenceFill {
+    height: 100%;
+    transition: width 0.6s ease-in-out;
+}
+
+.confidenceText {
+    font-size: 0.85rem;
+    font-weight: 500;
 }
